@@ -1,0 +1,88 @@
+version 3
+run General-0-20230201-17:03:46-17148
+attr configname General
+attr datetime 20230201-17:03:46
+attr datetimef 20230201-170346
+attr experiment General
+attr inifile ospfR.ini
+attr iterationvars ""
+attr iterationvarsd ""
+attr iterationvarsf ""
+attr measurement ""
+attr network inet.examples.OspfRouting.OspfRouting
+attr processid 17148
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+config image-path ../../images
+config network inet.examples.OspfRouting.OspfRouting
+config description "Enabling the visualization"
+config **.visualizer true
+config sim-time-limit 500s
+config **.H1.numUdpApps 1
+config **.H2.numUdpApps 1
+config **.H1.display-name Giang
+config **.H2.display-name Trang
+config **.configurator.config "xmldoc(\"Rconfig.xml\")"
+config **.ospf.ospfConfig "xmldoc(\"RASConfig.xml\")"
+config **.configurator.addStaticRoutes false
+config **.configurator.addDefaultRoutes false
+config **.configurator.addSubnetRoutes false
+config **.configurator.dumpRoutes true
+config **.H2.app[0].destAddresses "\"H1\""
+config **.H1.app[0].destAddresses "\"H2\""
+config **.app[0].startTime 100s
+config **.app[0].stopTime "this.startTime + 420s"
+config **.app[0].messageLength "32 bytes"
+config **.pingApp[*].sendInterval 1000ms
+config **.arp.cacheTimeout 1s
+config **.app[0].typename UdpBasicApp
+config **.app[0].destPort 1234
+config **.app[1].localPort 1234
+config **.app[1].typename UdpEchoApp
+
+vector 0 OspfRouting.H1.udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr moduledisplaypath OspfRouting.Giang.udp
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+vector 1 OspfRouting.H1.udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr moduledisplaypath OspfRouting.Giang.udp
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+vector 2 OspfRouting.H1.udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr moduledisplaypath OspfRouting.Giang.udp
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+vector 3 OspfRouting.H2.udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr moduledisplaypath OspfRouting.Trang.udp
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+vector 4 OspfRouting.H2.udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr moduledisplaypath OspfRouting.Trang.udp
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+vector 5 OspfRouting.H2.udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr moduledisplaypath OspfRouting.Trang.udp
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+0	0	0	0
+1	0	0	0
+2	0	0	0
+3	0	0	0
+4	0	0	0
+5	0	0	0
+

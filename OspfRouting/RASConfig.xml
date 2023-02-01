@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<OSPFASConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="OSPF.xsd">
+
+<Area id = "0.0.0.0">
+    <AddressRange address = "10.0.0.0"
+    mask = "255.0.0.0"
+    status = "Advertise" />
+</Area>
+
+<Area id = "0.0.0.0">
+    <AddressRange address = "20.0.0.0"
+    mask = "255.0.0.0"
+    status = "Advertise" />
+</Area>
+
+<Area id = "0.0.0.0">
+    <AddressRange address = "30.0.0.0"
+    mask = "255.0.0.0"
+    status = "Advertise" />
+</Area>
+
+<Area id = "0.0.0.0">
+    <AddressRange address = "40.0.0.0"
+    mask = "255.0.0.0"
+    status = "Advertise" />
+</Area>
+
+<Area id = "0.0.0.1">
+    <AddressRange address = "50.0.0.0"
+    mask = "255.0.0.0"
+    status = "Advertise" />
+</Area>
+
+<Area id = "0.0.0.2">
+    <AddressRange address = "60.0.0.0"
+    mask = "255.0.0.0"
+    status = "Advertise" />
+</Area>
+
+<Router name = "R1" RFC1583Compatible = "true">
+
+     <BroadcastInterface
+        ifName= "eth2"
+        areaID= "0.0.0.1"
+        interfaceOutputCost = "1"
+     />
+
+     <PointToPointInterface
+         ifName="eth0"
+         areaID = "0.0.0.0"
+         interfaceOutputCost = "1"
+      />
+
+      <PointToPointInterface
+         ifName="eth1"
+         areaID = "0.0.0.0"
+         interfaceOutputCost = "900"
+      /> 
+
+</Router>
+
+<Router name = "R2" RFC1583Compatible = "true">
+
+     <PointToPointInterface
+         ifName="eth0"
+         areaID = "0.0.0.0"
+         interfaceOutputCost = "1"
+      />
+
+      <PointToPointInterface
+         ifName="eth1"
+         areaID = "0.0.0.0"
+         interfaceOutputCost = "1"
+      />
+
+</Router>
+
+<Router name = "R3" RFC1583Compatible = "true">
+
+     <BroadcastInterface
+        ifName= "eth2"
+        areaID= "0.0.0.2"
+        interfaceOutputCost = "1"
+     />
+
+     <PointToPointInterface
+         ifName="eth0"
+         areaID = "0.0.0.0"
+         interfaceOutputCost = "1"
+      />
+
+      <PointToPointInterface
+         ifName="eth1"
+         areaID = "0.0.0.0"
+         interfaceOutputCost = "900"
+      />
+
+</Router>
+
+ <Router name = "R4" RFC1583Compatible = "true">
+
+     <PointToPointInterface
+         ifName="eth0"
+         areaID = "0.0.0.0"
+         interfaceOutputCost = "900"
+      />
+
+      <PointToPointInterface
+         ifName="eth1"
+         areaID = "0.0.0.0"
+         interfaceOutputCost = "900"
+      />
+
+</Router>
+
+</OSPFASConfig>

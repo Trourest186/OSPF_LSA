@@ -1,0 +1,3945 @@
+version 3
+run dynamic1-0-20230201-17:03:54-17148
+attr configname dynamic1
+attr datetime 20230201-17:03:54
+attr datetimef 20230201-170354
+attr experiment dynamic1
+attr inifile ospfR.ini
+attr iterationvars ""
+attr iterationvarsd ""
+attr iterationvarsf ""
+attr measurement ""
+attr network inet.examples.OspfRouting.OspfRouting
+attr processid 17148
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+config image-path ../../images
+config description "connect/disconnect link (dynamic topology)"
+config *.scenarioManager.script "xmldoc(\"scenario1.xml\")"
+config network inet.examples.OspfRouting.OspfRouting
+config description "Enabling the visualization"
+config **.visualizer true
+config sim-time-limit 500s
+config **.H1.numUdpApps 1
+config **.H2.numUdpApps 1
+config **.H1.display-name Giang
+config **.H2.display-name Trang
+config **.configurator.config "xmldoc(\"Rconfig.xml\")"
+config **.ospf.ospfConfig "xmldoc(\"RASConfig.xml\")"
+config **.configurator.addStaticRoutes false
+config **.configurator.addDefaultRoutes false
+config **.configurator.addSubnetRoutes false
+config **.configurator.dumpRoutes true
+config **.H2.app[0].destAddresses "\"H1\""
+config **.H1.app[0].destAddresses "\"H2\""
+config **.app[0].startTime 100s
+config **.app[0].stopTime "this.startTime + 420s"
+config **.app[0].messageLength "32 bytes"
+config **.pingApp[*].sendInterval 1000ms
+config **.arp.cacheTimeout 1s
+config **.app[0].typename UdpBasicApp
+config **.app[0].destPort 1234
+config **.app[1].localPort 1234
+config **.app[1].typename UdpEchoApp
+
+vector 0 OspfRouting.H1.udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr moduledisplaypath OspfRouting.Giang.udp
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+vector 1 OspfRouting.H1.udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr moduledisplaypath OspfRouting.Giang.udp
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+vector 2 OspfRouting.H1.udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr moduledisplaypath OspfRouting.Giang.udp
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+vector 3 OspfRouting.H2.udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr moduledisplaypath OspfRouting.Trang.udp
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+vector 4 OspfRouting.H2.udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr moduledisplaypath OspfRouting.Trang.udp
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+vector 5 OspfRouting.H2.udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr moduledisplaypath OspfRouting.Trang.udp
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+vector 6 OspfRouting.R3.ethernet encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+vector 7 OspfRouting.R3.eth[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 8 OspfRouting.R3.eth[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 9 OspfRouting.R3.eth[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 10 OspfRouting.R3.eth[0].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 11 OspfRouting.R3.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 12 OspfRouting.R3.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 13 OspfRouting.R3.eth[0].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 14 OspfRouting.R2.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 15 OspfRouting.R2.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 16 OspfRouting.R2.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+vector 17 OspfRouting.R1.ethernet encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+vector 18 OspfRouting.R1.eth[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 19 OspfRouting.R1.eth[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 20 OspfRouting.R1.eth[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 21 OspfRouting.R1.eth[0].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 22 OspfRouting.R1.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 23 OspfRouting.R1.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 24 OspfRouting.R1.eth[0].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 25 OspfRouting.R4.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 26 OspfRouting.R4.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 27 OspfRouting.R4.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+vector 28 OspfRouting.R4.ethernet encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+vector 29 OspfRouting.R4.eth[1].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 30 OspfRouting.R4.eth[1].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 31 OspfRouting.R4.eth[1].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 32 OspfRouting.R4.eth[1].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 33 OspfRouting.R4.eth[1].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 34 OspfRouting.R4.eth[1].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 35 OspfRouting.R4.eth[1].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 36 OspfRouting.R3.eth[1].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 37 OspfRouting.R3.eth[1].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 38 OspfRouting.R3.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+vector 39 OspfRouting.R2.ethernet encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+vector 40 OspfRouting.R2.eth[1].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 41 OspfRouting.R2.eth[1].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 42 OspfRouting.R2.eth[1].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 43 OspfRouting.R2.eth[1].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 44 OspfRouting.R2.eth[1].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 45 OspfRouting.R2.eth[1].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 46 OspfRouting.R2.eth[1].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 47 OspfRouting.R1.eth[1].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 48 OspfRouting.R1.eth[1].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 49 OspfRouting.R1.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+vector 50 OspfRouting.R4.eth[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 51 OspfRouting.R4.eth[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 52 OspfRouting.R4.eth[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 53 OspfRouting.R4.eth[0].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 54 OspfRouting.R4.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 55 OspfRouting.R4.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 56 OspfRouting.R4.eth[0].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 57 OspfRouting.R1.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 58 OspfRouting.R1.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 59 OspfRouting.R3.eth[1].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 60 OspfRouting.R3.eth[1].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 61 OspfRouting.R3.eth[1].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 62 OspfRouting.R3.eth[1].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 63 OspfRouting.R3.eth[1].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 64 OspfRouting.R3.eth[1].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 65 OspfRouting.R3.eth[1].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 66 OspfRouting.R4.eth[1].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 67 OspfRouting.R4.eth[1].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 68 OspfRouting.R2.eth[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 69 OspfRouting.R2.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 70 OspfRouting.R2.eth[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 71 OspfRouting.R2.eth[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 72 OspfRouting.R2.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 73 OspfRouting.R2.eth[0].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 74 OspfRouting.R2.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 75 OspfRouting.R2.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 76 OspfRouting.R2.eth[0].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 77 OspfRouting.R3.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 78 OspfRouting.R3.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 79 OspfRouting.R3.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 80 OspfRouting.R3.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 81 OspfRouting.R3.eth[1].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 82 OspfRouting.R3.eth[1].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 83 OspfRouting.R4.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 84 OspfRouting.R4.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 85 OspfRouting.R1.eth[2].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 86 OspfRouting.R1.eth[2].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 87 OspfRouting.R1.eth[2].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 88 OspfRouting.R1.eth[2].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 89 OspfRouting.R1.eth[2].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 90 OspfRouting.R1.eth[2].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 91 OspfRouting.R1.eth[2].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 92 OspfRouting.R1.eth[2].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 93 OspfRouting.R1.eth[2].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 94 OspfRouting.SW1.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 95 OspfRouting.SW1.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 96 OspfRouting.SW1.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+vector 97 OspfRouting.SW1.ethernet encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+vector 98 OspfRouting.SW1.eth[1].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 99 OspfRouting.SW1.eth[1].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 100 OspfRouting.SW1.eth[1].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 101 OspfRouting.SW1.eth[1].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 102 OspfRouting.SW1.eth[1].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 103 OspfRouting.SW1.eth[1].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 104 OspfRouting.SW1.eth[1].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 105 OspfRouting.SW1.eth[1].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 106 OspfRouting.SW1.eth[1].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 107 OspfRouting.H1.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr moduledisplaypath OspfRouting.Giang.eth[0].mac
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 108 OspfRouting.H1.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr moduledisplaypath OspfRouting.Giang.eth[0].mac
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 109 OspfRouting.H1.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr moduledisplaypath OspfRouting.Giang.ethernet
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+vector 110 OspfRouting.R1.eth[1].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 111 OspfRouting.R1.eth[1].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 112 OspfRouting.R1.eth[1].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 113 OspfRouting.R1.eth[1].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 114 OspfRouting.R1.eth[1].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 115 OspfRouting.R1.eth[1].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 116 OspfRouting.R1.eth[1].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 117 OspfRouting.R1.eth[1].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 118 OspfRouting.R1.eth[1].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 119 OspfRouting.R2.eth[1].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 120 OspfRouting.R2.eth[1].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 121 OspfRouting.R2.eth[1].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 122 OspfRouting.R2.eth[1].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 123 OspfRouting.R3.eth[2].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 124 OspfRouting.R3.eth[2].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 125 OspfRouting.R3.eth[2].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 126 OspfRouting.R3.eth[2].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 127 OspfRouting.R3.eth[2].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 128 OspfRouting.R3.eth[2].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 129 OspfRouting.R3.eth[2].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 130 OspfRouting.R3.eth[2].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 131 OspfRouting.R3.eth[2].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 132 OspfRouting.SW2.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 133 OspfRouting.SW2.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 134 OspfRouting.SW2.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+vector 135 OspfRouting.SW2.ethernet encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+vector 136 OspfRouting.SW2.eth[1].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 137 OspfRouting.SW2.eth[1].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 138 OspfRouting.SW2.eth[1].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 139 OspfRouting.SW2.eth[1].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 140 OspfRouting.SW2.eth[1].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 141 OspfRouting.SW2.eth[1].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 142 OspfRouting.SW2.eth[1].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 143 OspfRouting.SW2.eth[1].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 144 OspfRouting.SW2.eth[1].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 145 OspfRouting.H2.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr moduledisplaypath OspfRouting.Trang.eth[0].mac
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 146 OspfRouting.H2.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr moduledisplaypath OspfRouting.Trang.eth[0].mac
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 147 OspfRouting.H2.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr moduledisplaypath OspfRouting.Trang.ethernet
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+vector 148 OspfRouting.R1.ipv4.arp arpRequestSent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpRequestSent
+attr title "ARP request sent, packetBytes"
+vector 149 OspfRouting.R1.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 150 OspfRouting.R1.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 151 OspfRouting.R4.ipv4.arp arpReplySent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpReplySent
+attr title "ARP replies sent, packetBytes"
+vector 152 OspfRouting.R4.eth[1].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 153 OspfRouting.R4.eth[1].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 154 OspfRouting.R3.ipv4.arp arpRequestSent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpRequestSent
+attr title "ARP request sent, packetBytes"
+0	0	0	0
+1	0	0	0
+2	0	0	0
+3	0	0	0
+4	0	0	0
+5	0	0	0
+6	3	0.089228422814	64
+6	170	0.096843115973	68
+6	187	0.096857075973	52
+6	206	0.096874555973	92
+6	207	0.096874555973	80
+6	251	0.096898915973	72
+6	252	0.096898915973	76
+6	310	0.096927555973	96
+6	341	0.107206487093	52
+6	359	0.107219167093	52
+6	378	0.107233447093	152
+6	379	0.107233447093	56
+6	420	0.107265487093	96
+6	421	0.107265487093	96
+6	422	0.107265487093	72
+6	423	0.107265487093	76
+6	424	0.107265487093	76
+6	439	0.107274287093	120
+6	440	0.107274287093	120
+6	441	0.107274287093	72
+6	639	0.119763288281	64
+6	778	5.096448080613	108
+6	821	5.096468720613	120
+6	850	5.096481360613	120
+6	877	5.096494240613	64
+6	894	5.096927555973	28
+7	4	0.089228422814	656
+7	342	0.107206487093	560
+7	360	0.107219167093	560
+7	380	0.107233447093	1360
+7	381	0.107233447093	592
+7	425	0.107265487093	912
+7	426	0.107265487093	912
+7	427	0.107265487093	720
+7	428	0.107265487093	752
+7	429	0.107265487093	752
+7	442	0.107274287093	1104
+7	779	5.096448080613	1008
+8	4	0.089228422814	0
+8	342	0.107206487093	0
+8	360	0.107219167093	0
+8	380	0.107233447093	0
+8	394	0.107248647093	1.52e-05
+8	425	0.107265487093	0
+8	451	0.107276207093	1.072e-05
+8	463	0.107286927093	2.144e-05
+8	478	0.107295727093	3.024e-05
+8	490	0.107304847093	3.936e-05
+8	499	0.107313967093	3.968e-05
+8	779	5.096448080613	0
+9	4	0.089228422814	656
+9	342	0.107206487093	560
+9	360	0.107219167093	560
+9	380	0.107233447093	1360
+9	394	0.107248647093	592
+9	425	0.107265487093	912
+9	451	0.107276207093	912
+9	463	0.107286927093	720
+9	478	0.107295727093	752
+9	490	0.107304847093	752
+9	499	0.107313967093	1104
+9	779	5.096448080613	1008
+10	4	0.089228422814	82
+10	342	0.107206487093	70
+10	360	0.107219167093	70
+10	380	0.107233447093	170
+10	394	0.107248647093	74
+10	425	0.107265487093	114
+10	451	0.107276207093	114
+10	463	0.107286927093	90
+10	478	0.107295727093	94
+10	490	0.107304847093	94
+10	499	0.107313967093	138
+10	779	5.096448080613	126
+11	4	0.089228422814	0
+11	342	0.107206487093	0
+11	360	0.107219167093	0
+11	380	0.107233447093	0
+11	381	0.107233447093	1
+11	394	0.107248647093	0
+11	425	0.107265487093	0
+11	426	0.107265487093	1
+11	427	0.107265487093	2
+11	428	0.107265487093	3
+11	429	0.107265487093	4
+11	442	0.107274287093	5
+11	451	0.107276207093	4
+11	463	0.107286927093	3
+11	478	0.107295727093	2
+11	490	0.107304847093	1
+11	499	0.107313967093	0
+11	779	5.096448080613	0
+12	4	0.089228422814	0
+12	342	0.107206487093	0
+12	360	0.107219167093	0
+12	380	0.107233447093	0
+12	381	0.107233447093	592
+12	394	0.107248647093	0
+12	425	0.107265487093	0
+12	426	0.107265487093	912
+12	427	0.107265487093	1632
+12	428	0.107265487093	2384
+12	429	0.107265487093	3136
+12	442	0.107274287093	4240
+12	451	0.107276207093	3328
+12	463	0.107286927093	2608
+12	478	0.107295727093	1856
+12	490	0.107304847093	1104
+12	499	0.107313967093	0
+12	779	5.096448080613	0
+13	5	0.089235622814	82
+13	344	0.107212727093	70
+13	362	0.107225407093	70
+13	383	0.107247687093	170
+13	401	0.107255207093	74
+13	446	0.107275247093	114
+13	453	0.107285967093	114
+13	465	0.107294767093	90
+13	485	0.107303887093	94
+13	491	0.107313007093	94
+13	506	0.107325647093	138
+13	796	5.096458800613	126
+14	6	0.089235722814	82
+14	345	0.107212827093	70
+14	363	0.107225507093	70
+14	384	0.107247787093	170
+14	402	0.107255307093	74
+14	447	0.107275347093	114
+14	455	0.107286067093	114
+14	467	0.107294867093	90
+14	486	0.107303987093	94
+14	492	0.107313107093	94
+14	507	0.107325747093	138
+14	797	5.096458900613	126
+15	6	0.089235722814	82
+15	345	0.107212827093	70
+15	363	0.107225507093	70
+15	384	0.107247787093	170
+15	402	0.107255307093	74
+15	447	0.107275347093	114
+15	455	0.107286067093	114
+15	467	0.107294867093	90
+15	486	0.107303987093	94
+15	492	0.107313107093	94
+15	507	0.107325747093	138
+15	797	5.096458900613	126
+16	7	0.089235722814	64
+16	346	0.107212827093	52
+16	364	0.107225507093	52
+16	385	0.107247787093	152
+16	403	0.107255307093	56
+16	448	0.107275347093	96
+16	457	0.107286067093	96
+16	469	0.107294867093	72
+16	487	0.107303987093	76
+16	493	0.107313107093	76
+16	508	0.107325747093	120
+16	534	0.108855427824	68
+16	552	0.108868107824	52
+16	573	0.108899987824	172
+16	591	0.108909427824	80
+16	620	0.108924667824	108
+16	789	5.096456940613	120
+16	798	5.096458900613	108
+17	13	0.089470098282	64
+17	51	0.096354600613	52
+17	69	0.096367280613	52
+17	88	0.096381560613	92
+17	89	0.096381560613	56
+17	127	0.096405920613	72
+17	128	0.096405920613	76
+17	144	0.096414720613	108
+17	514	0.10852570675	64
+17	530	0.108847807824	68
+17	547	0.108861767824	52
+17	566	0.108884047824	172
+17	567	0.108884047824	80
+17	610	0.108913847824	108
+17	725	5.096414720613	28
+17	742	5.096426440613	108
+17	763	5.096445160613	120
+17	764	5.096445160613	64
+17	765	5.096445160613	64
+17	766	5.096445160613	64
+17	835	5.096470680613	120
+18	14	0.089470098282	656
+18	52	0.096354600613	560
+18	70	0.096367280613	560
+18	90	0.096381560613	880
+18	91	0.096381560613	592
+18	129	0.096405920613	720
+18	130	0.096405920613	752
+18	145	0.096414720613	1008
+18	726	5.096414720613	368
+18	743	5.096426440613	1008
+18	768	5.096445160613	656
+18	769	5.096445160613	656
+18	770	5.096445160613	656
+18	836	5.096470680613	1104
+19	14	0.089470098282	0
+19	52	0.096354600613	0
+19	70	0.096367280613	0
+19	90	0.096381560613	0
+19	104	0.096391960613	1.04e-05
+19	129	0.096405920613	0
+19	139	0.096414720613	8.8e-06
+19	155	0.096423840613	9.12e-06
+19	726	5.096414720613	0
+19	743	5.096426440613	0
+19	768	5.096445160613	0
+19	786	5.096453320613	8.16e-06
+19	813	5.096461480613	1.632e-05
+19	836	5.096470680613	0
+20	14	0.089470098282	656
+20	52	0.096354600613	560
+20	70	0.096367280613	560
+20	90	0.096381560613	880
+20	104	0.096391960613	592
+20	129	0.096405920613	720
+20	139	0.096414720613	752
+20	155	0.096423840613	1008
+20	726	5.096414720613	368
+20	743	5.096426440613	1008
+20	768	5.096445160613	656
+20	786	5.096453320613	656
+20	813	5.096461480613	656
+20	836	5.096470680613	1104
+21	14	0.089470098282	82
+21	52	0.096354600613	70
+21	70	0.096367280613	70
+21	90	0.096381560613	110
+21	104	0.096391960613	74
+21	129	0.096405920613	90
+21	139	0.096414720613	94
+21	155	0.096423840613	126
+21	726	5.096414720613	46
+21	743	5.096426440613	126
+21	768	5.096445160613	82
+21	786	5.096453320613	82
+21	813	5.096461480613	82
+21	836	5.096470680613	138
+22	14	0.089470098282	0
+22	52	0.096354600613	0
+22	70	0.096367280613	0
+22	90	0.096381560613	0
+22	91	0.096381560613	1
+22	104	0.096391960613	0
+22	129	0.096405920613	0
+22	130	0.096405920613	1
+22	139	0.096414720613	0
+22	145	0.096414720613	1
+22	155	0.096423840613	0
+22	726	5.096414720613	0
+22	743	5.096426440613	0
+22	768	5.096445160613	0
+22	769	5.096445160613	1
+22	770	5.096445160613	2
+22	786	5.096453320613	1
+22	813	5.096461480613	0
+22	836	5.096470680613	0
+23	14	0.089470098282	0
+23	52	0.096354600613	0
+23	70	0.096367280613	0
+23	90	0.096381560613	0
+23	91	0.096381560613	592
+23	104	0.096391960613	0
+23	129	0.096405920613	0
+23	130	0.096405920613	752
+23	139	0.096414720613	0
+23	145	0.096414720613	1008
+23	155	0.096423840613	0
+23	726	5.096414720613	0
+23	743	5.096426440613	0
+23	768	5.096445160613	0
+23	769	5.096445160613	656
+23	770	5.096445160613	1312
+23	786	5.096453320613	656
+23	813	5.096461480613	0
+23	836	5.096470680613	0
+24	15	0.089477298282	82
+24	54	0.096360840613	70
+24	72	0.096373520613	70
+24	93	0.096391000613	110
+24	111	0.096398520613	74
+24	132	0.096413760613	90
+24	147	0.096422880613	94
+24	162	0.096434560613	126
+24	727	5.096420480613	64
+24	745	5.096437160613	126
+24	781	5.096452360613	82
+24	808	5.096460520613	82
+24	815	5.096468680613	82
+24	853	5.096482360613	138
+25	16	0.089477398282	82
+25	55	0.096360940613	70
+25	73	0.096373620613	70
+25	94	0.096391100613	110
+25	112	0.096398620613	74
+25	133	0.096413860613	90
+25	148	0.096422980613	94
+25	163	0.096434660613	126
+25	728	5.096420580613	64
+25	746	5.096437260613	126
+25	782	5.096452460613	82
+25	809	5.096460620613	82
+25	823	5.096468780613	82
+25	854	5.096482460613	138
+26	16	0.089477398282	82
+26	55	0.096360940613	70
+26	73	0.096373620613	70
+26	94	0.096391100613	110
+26	112	0.096398620613	74
+26	133	0.096413860613	90
+26	148	0.096422980613	94
+26	163	0.096434660613	126
+26	728	5.096420580613	64
+26	746	5.096437260613	126
+26	782	5.096452460613	82
+26	809	5.096460620613	82
+26	823	5.096468780613	82
+26	854	5.096482460613	138
+27	17	0.089477398282	64
+27	56	0.096360940613	52
+27	74	0.096373620613	52
+27	95	0.096391100613	92
+27	113	0.096398620613	56
+27	134	0.096413860613	72
+27	149	0.096422980613	76
+27	164	0.096434660613	108
+27	174	0.096850735973	68
+27	192	0.096863415973	52
+27	213	0.096884095973	92
+27	231	0.096893535973	80
+27	258	0.096906855973	72
+27	279	0.096915975973	76
+27	320	0.096937415973	96
+27	456	0.107286067093	120
+27	468	0.107294867093	72
+27	729	5.096420580613	46
+27	747	5.096437260613	108
+27	783	5.096452460613	64
+27	810	5.096460620613	64
+27	824	5.096468780613	64
+27	840	5.096480500613	120
+27	855	5.096482460613	120
+27	864	5.096493140613	120
+27	882	5.096501540613	64
+27	898	5.096933415973	46
+28	23	0.090262027451	64
+28	43	0.096346980613	68
+28	60	0.096360940613	52
+28	78	0.096373620613	72
+28	100	0.096391100613	52
+28	101	0.096391100613	68
+28	117	0.096398620613	72
+28	153	0.096422980613	96
+28	178	0.096850735973	52
+28	196	0.096863415973	112
+28	218	0.096884095973	52
+28	219	0.096884095973	68
+28	237	0.096893535973	96
+28	238	0.096893535973	72
+28	239	0.096893535973	76
+28	262	0.096906855973	72
+28	285	0.096915975973	76
+28	286	0.096915975973	120
+28	287	0.096915975973	120
+28	475	0.107294867093	72
+28	731	5.096420580613	28
+28	736	5.096422980613	196
+28	751	5.096437260613	108
+28	859	5.096482460613	120
+28	868	5.096493140613	64
+28	900	5.096933415973	28
+29	24	0.090262027451	656
+29	179	0.096850735973	560
+29	197	0.096863415973	1040
+29	220	0.096884095973	560
+29	221	0.096884095973	688
+29	240	0.096893535973	912
+29	241	0.096893535973	720
+29	242	0.096893535973	752
+29	290	0.096915975973	1104
+29	752	5.096437260613	1008
+29	860	5.096482460613	1104
+29	869	5.096493140613	656
+29	901	5.096933415973	368
+30	24	0.090262027451	0
+30	179	0.096850735973	0
+30	197	0.096863415973	0
+30	220	0.096884095973	0
+30	228	0.096891295973	7.2e-06
+30	255	0.096899775973	6.24e-06
+30	270	0.096910495973	1.696e-05
+30	297	0.096919295973	2.576e-05
+30	312	0.096928415973	1.244e-05
+30	752	5.096437260613	0
+30	860	5.096482460613	0
+30	879	5.096495100613	1.96e-06
+30	901	5.096933415973	0
+31	24	0.090262027451	656
+31	179	0.096850735973	560
+31	197	0.096863415973	1040
+31	220	0.096884095973	560
+31	228	0.096891295973	688
+31	255	0.096899775973	912
+31	270	0.096910495973	720
+31	297	0.096919295973	752
+31	312	0.096928415973	1104
+31	752	5.096437260613	1008
+31	860	5.096482460613	1104
+31	879	5.096495100613	656
+31	901	5.096933415973	368
+32	24	0.090262027451	82
+32	179	0.096850735973	70
+32	197	0.096863415973	130
+32	220	0.096884095973	70
+32	228	0.096891295973	86
+32	255	0.096899775973	114
+32	270	0.096910495973	90
+32	297	0.096919295973	94
+32	312	0.096928415973	138
+32	752	5.096437260613	126
+32	860	5.096482460613	138
+32	879	5.096495100613	82
+32	901	5.096933415973	46
+33	24	0.090262027451	0
+33	179	0.096850735973	0
+33	197	0.096863415973	0
+33	220	0.096884095973	0
+33	221	0.096884095973	1
+33	228	0.096891295973	0
+33	240	0.096893535973	1
+33	241	0.096893535973	2
+33	242	0.096893535973	3
+33	255	0.096899775973	2
+33	270	0.096910495973	1
+33	290	0.096915975973	2
+33	297	0.096919295973	1
+33	312	0.096928415973	0
+33	752	5.096437260613	0
+33	860	5.096482460613	0
+33	869	5.096493140613	1
+33	879	5.096495100613	0
+33	901	5.096933415973	0
+34	24	0.090262027451	0
+34	179	0.096850735973	0
+34	197	0.096863415973	0
+34	220	0.096884095973	0
+34	221	0.096884095973	688
+34	228	0.096891295973	0
+34	240	0.096893535973	912
+34	241	0.096893535973	1632
+34	242	0.096893535973	2384
+34	255	0.096899775973	1472
+34	270	0.096910495973	752
+34	290	0.096915975973	1856
+34	297	0.096919295973	1104
+34	312	0.096928415973	0
+34	752	5.096437260613	0
+34	860	5.096482460613	0
+34	869	5.096493140613	656
+34	879	5.096495100613	0
+34	901	5.096933415973	0
+35	25	0.090269227451	82
+35	181	0.096856975973	70
+35	199	0.096874455973	130
+35	223	0.096890335973	70
+35	244	0.096898815973	86
+35	265	0.096909535973	114
+35	292	0.096918335973	90
+35	304	0.096927455973	94
+35	325	0.096940095973	138
+35	772	5.096447980613	126
+35	871	5.096494140613	138
+35	885	5.096502300613	82
+36	26	0.090269327451	82
+36	182	0.096857075973	70
+36	200	0.096874555973	130
+36	224	0.096890435973	70
+36	245	0.096898915973	86
+36	266	0.096909635973	114
+36	293	0.096918435973	90
+36	305	0.096927555973	94
+36	326	0.096940195973	138
+36	773	5.096448080613	126
+36	872	5.096494240613	138
+36	886	5.096502400613	82
+37	26	0.090269327451	82
+37	182	0.096857075973	70
+37	200	0.096874555973	130
+37	224	0.096890435973	70
+37	245	0.096898915973	86
+37	266	0.096909635973	114
+37	293	0.096918435973	90
+37	305	0.096927555973	94
+37	326	0.096940195973	138
+37	773	5.096448080613	126
+37	872	5.096494240613	138
+37	886	5.096502400613	82
+38	27	0.090269327451	64
+38	183	0.096857075973	52
+38	201	0.096874555973	112
+38	225	0.096890435973	52
+38	246	0.096898915973	68
+38	267	0.096909635973	96
+38	294	0.096918435973	72
+38	306	0.096927555973	76
+38	327	0.096940195973	120
+38	337	0.107206487093	68
+38	355	0.107219167093	52
+38	373	0.107233447093	72
+38	397	0.107254127093	52
+38	412	0.107265487093	104
+38	433	0.107274287093	72
+38	502	0.107322967093	96
+38	774	5.096448080613	108
+38	817	5.096468720613	120
+38	846	5.096481360613	120
+38	873	5.096494240613	120
+38	888	5.096502400613	64
+39	33	0.092510047472	64
+39	333	0.107198867093	68
+39	350	0.107212827093	52
+39	368	0.107225507093	72
+39	390	0.107247787093	52
+39	391	0.107247787093	104
+39	407	0.107255307093	72
+39	497	0.107313107093	96
+39	538	0.108855427824	52
+39	556	0.108868107824	172
+39	578	0.108899987824	52
+39	579	0.108899987824	56
+39	597	0.108909427824	96
+39	598	0.108909427824	96
+39	599	0.108909427824	96
+39	793	5.096456940613	120
+39	803	5.096458900613	120
+39	804	5.096458900613	120
+40	34	0.092510047472	656
+40	539	0.108855427824	560
+40	557	0.108868107824	1520
+40	580	0.108899987824	560
+40	581	0.108899987824	592
+40	600	0.108909427824	912
+40	601	0.108909427824	912
+40	602	0.108909427824	912
+40	806	5.096458900613	1104
+41	34	0.092510047472	0
+41	539	0.108855427824	0
+41	557	0.108868107824	0
+41	580	0.108899987824	0
+41	588	0.108907187824	7.2e-06
+41	612	0.108914707824	5.28e-06
+41	623	0.108925427824	1.6e-05
+41	630	0.108936147824	2.672e-05
+41	806	5.096458900613	0
+42	34	0.092510047472	656
+42	539	0.108855427824	560
+42	557	0.108868107824	1520
+42	580	0.108899987824	560
+42	588	0.108907187824	592
+42	612	0.108914707824	912
+42	623	0.108925427824	912
+42	630	0.108936147824	912
+42	806	5.096458900613	1104
+43	34	0.092510047472	82
+43	539	0.108855427824	70
+43	557	0.108868107824	190
+43	580	0.108899987824	70
+43	588	0.108907187824	74
+43	612	0.108914707824	114
+43	623	0.108925427824	114
+43	630	0.108936147824	114
+43	806	5.096458900613	138
+44	34	0.092510047472	0
+44	539	0.108855427824	0
+44	557	0.108868107824	0
+44	580	0.108899987824	0
+44	581	0.108899987824	1
+44	588	0.108907187824	0
+44	600	0.108909427824	1
+44	601	0.108909427824	2
+44	602	0.108909427824	3
+44	612	0.108914707824	2
+44	623	0.108925427824	1
+44	630	0.108936147824	0
+44	806	5.096458900613	0
+45	34	0.092510047472	0
+45	539	0.108855427824	0
+45	557	0.108868107824	0
+45	580	0.108899987824	0
+45	581	0.108899987824	592
+45	588	0.108907187824	0
+45	600	0.108909427824	912
+45	601	0.108909427824	1824
+45	602	0.108909427824	2736
+45	612	0.108914707824	1824
+45	623	0.108925427824	912
+45	630	0.108936147824	0
+45	806	5.096458900613	0
+46	35	0.092517247472	82
+46	541	0.108861667824	70
+46	559	0.108883947824	190
+46	583	0.108906227824	70
+46	604	0.108913747824	74
+46	613	0.108924467824	114
+46	625	0.108935187824	114
+46	631	0.108945907824	114
+46	829	5.096470580613	138
+47	36	0.092517347472	82
+47	542	0.108861767824	70
+47	560	0.108884047824	190
+47	584	0.108906327824	70
+47	605	0.108913847824	74
+47	615	0.108924567824	114
+47	626	0.108935287824	114
+47	632	0.108946007824	114
+47	830	5.096470680613	138
+48	36	0.092517347472	82
+48	542	0.108861767824	70
+48	560	0.108884047824	190
+48	584	0.108906327824	70
+48	605	0.108913847824	74
+48	615	0.108924567824	114
+48	626	0.108935287824	114
+48	632	0.108946007824	114
+48	830	5.096470680613	138
+49	37	0.092517347472	64
+49	47	0.096354600613	68
+49	65	0.096367280613	52
+49	83	0.096381560613	72
+49	107	0.096397440613	52
+49	122	0.096405920613	68
+49	140	0.096414720613	72
+49	158	0.096432840613	96
+49	273	0.096914795973	72
+49	300	0.096924235973	76
+49	315	0.096936875973	120
+49	481	0.107302807093	72
+49	543	0.108861767824	52
+49	561	0.108884047824	172
+49	585	0.108906327824	52
+49	606	0.108913847824	56
+49	616	0.108924567824	96
+49	627	0.108935287824	96
+49	633	0.108946007824	96
+49	740	5.096426440613	46
+49	756	5.096445160613	196
+49	831	5.096470680613	120
+50	44	0.096346980613	688
+50	61	0.096360940613	560
+50	79	0.096373620613	720
+50	102	0.096391100613	560
+50	103	0.096391100613	688
+50	118	0.096398620613	720
+50	154	0.096422980613	912
+50	263	0.096906855973	720
+50	288	0.096915975973	752
+50	289	0.096915975973	1104
+50	476	0.107294867093	720
+50	732	5.096420580613	368
+50	737	5.096422980613	1712
+51	44	0.096346980613	0
+51	61	0.096360940613	0
+51	79	0.096373620613	0
+51	102	0.096391100613	0
+51	110	0.096398300613	7.2e-06
+51	131	0.096406780613	8.16e-06
+51	154	0.096422980613	0
+51	263	0.096906855973	0
+51	288	0.096915975973	0
+51	303	0.096925095973	9.12e-06
+51	476	0.107294867093	0
+51	732	5.096420580613	0
+51	744	5.096427300613	4.32e-06
+52	44	0.096346980613	688
+52	61	0.096360940613	560
+52	79	0.096373620613	720
+52	102	0.096391100613	560
+52	110	0.096398300613	688
+52	131	0.096406780613	720
+52	154	0.096422980613	912
+52	263	0.096906855973	720
+52	288	0.096915975973	752
+52	303	0.096925095973	1104
+52	476	0.107294867093	720
+52	732	5.096420580613	368
+52	744	5.096427300613	1712
+53	44	0.096346980613	86
+53	61	0.096360940613	70
+53	79	0.096373620613	90
+53	102	0.096391100613	70
+53	110	0.096398300613	86
+53	131	0.096406780613	90
+53	154	0.096422980613	114
+53	263	0.096906855973	90
+53	288	0.096915975973	94
+53	303	0.096925095973	138
+53	476	0.107294867093	90
+53	732	5.096420580613	46
+53	744	5.096427300613	214
+54	44	0.096346980613	0
+54	61	0.096360940613	0
+54	79	0.096373620613	0
+54	102	0.096391100613	0
+54	103	0.096391100613	1
+54	110	0.096398300613	0
+54	118	0.096398620613	1
+54	131	0.096406780613	0
+54	154	0.096422980613	0
+54	263	0.096906855973	0
+54	288	0.096915975973	0
+54	289	0.096915975973	1
+54	303	0.096925095973	0
+54	476	0.107294867093	0
+54	732	5.096420580613	0
+54	737	5.096422980613	1
+54	744	5.096427300613	0
+55	44	0.096346980613	0
+55	61	0.096360940613	0
+55	79	0.096373620613	0
+55	102	0.096391100613	0
+55	103	0.096391100613	688
+55	110	0.096398300613	0
+55	118	0.096398620613	720
+55	131	0.096406780613	0
+55	154	0.096422980613	0
+55	263	0.096906855973	0
+55	288	0.096915975973	0
+55	289	0.096915975973	1104
+55	303	0.096925095973	0
+55	476	0.107294867093	0
+55	732	5.096420580613	0
+55	737	5.096422980613	1712
+55	744	5.096427300613	0
+56	45	0.096354500613	86
+56	63	0.096367180613	70
+56	81	0.096381460613	90
+56	105	0.096397340613	70
+56	120	0.096405820613	86
+56	137	0.096414620613	90
+56	156	0.096432740613	114
+56	271	0.096914695973	90
+56	298	0.096924135973	94
+56	313	0.096936775973	138
+56	479	0.107302707093	90
+56	738	5.096426340613	64
+56	754	5.096445060613	214
+57	46	0.096354600613	86
+57	64	0.096367280613	70
+57	82	0.096381560613	90
+57	106	0.096397440613	70
+57	121	0.096405920613	86
+57	138	0.096414720613	90
+57	157	0.096432840613	114
+57	272	0.096914795973	90
+57	299	0.096924235973	94
+57	314	0.096936875973	138
+57	480	0.107302807093	90
+57	739	5.096426440613	64
+57	755	5.096445160613	214
+58	46	0.096354600613	86
+58	64	0.096367280613	70
+58	82	0.096381560613	90
+58	106	0.096397440613	70
+58	121	0.096405920613	86
+58	138	0.096414720613	90
+58	157	0.096432840613	114
+58	272	0.096914795973	90
+58	299	0.096924235973	94
+58	314	0.096936875973	138
+58	480	0.107302807093	90
+58	739	5.096426440613	64
+58	755	5.096445160613	214
+59	171	0.096843115973	688
+59	188	0.096857075973	560
+59	208	0.096874555973	880
+59	209	0.096874555973	784
+59	253	0.096898915973	720
+59	254	0.096898915973	752
+59	311	0.096927555973	912
+59	443	0.107274287093	1104
+59	444	0.107274287093	720
+59	822	5.096468720613	1104
+59	851	5.096481360613	1104
+59	878	5.096494240613	656
+59	895	5.096927555973	368
+60	171	0.096843115973	0
+60	188	0.096857075973	0
+60	208	0.096874555973	0
+60	222	0.096884955973	1.04e-05
+60	253	0.096898915973	0
+60	264	0.096907715973	8.8e-06
+60	311	0.096927555973	0
+60	443	0.107274287093	0
+60	462	0.107286927093	1.264e-05
+60	822	5.096468720613	0
+60	851	5.096481360613	0
+60	878	5.096494240613	0
+60	895	5.096927555973	0
+61	171	0.096843115973	688
+61	188	0.096857075973	560
+61	208	0.096874555973	880
+61	222	0.096884955973	784
+61	253	0.096898915973	720
+61	264	0.096907715973	752
+61	311	0.096927555973	912
+61	443	0.107274287093	1104
+61	462	0.107286927093	720
+61	822	5.096468720613	1104
+61	851	5.096481360613	1104
+61	878	5.096494240613	656
+61	895	5.096927555973	368
+62	171	0.096843115973	86
+62	188	0.096857075973	70
+62	208	0.096874555973	110
+62	222	0.096884955973	98
+62	253	0.096898915973	90
+62	264	0.096907715973	94
+62	311	0.096927555973	114
+62	443	0.107274287093	138
+62	462	0.107286927093	90
+62	822	5.096468720613	138
+62	851	5.096481360613	138
+62	878	5.096494240613	82
+62	895	5.096927555973	46
+63	171	0.096843115973	0
+63	188	0.096857075973	0
+63	208	0.096874555973	0
+63	209	0.096874555973	1
+63	222	0.096884955973	0
+63	253	0.096898915973	0
+63	254	0.096898915973	1
+63	264	0.096907715973	0
+63	311	0.096927555973	0
+63	443	0.107274287093	0
+63	444	0.107274287093	1
+63	462	0.107286927093	0
+63	822	5.096468720613	0
+63	851	5.096481360613	0
+63	878	5.096494240613	0
+63	895	5.096927555973	0
+64	171	0.096843115973	0
+64	188	0.096857075973	0
+64	208	0.096874555973	0
+64	209	0.096874555973	784
+64	222	0.096884955973	0
+64	253	0.096898915973	0
+64	254	0.096898915973	752
+64	264	0.096907715973	0
+64	311	0.096927555973	0
+64	443	0.107274287093	0
+64	444	0.107274287093	720
+64	462	0.107286927093	0
+64	822	5.096468720613	0
+64	851	5.096481360613	0
+64	878	5.096494240613	0
+64	895	5.096927555973	0
+65	172	0.096850635973	86
+65	190	0.096863315973	70
+65	211	0.096883995973	110
+65	229	0.096893435973	98
+65	256	0.096906755973	90
+65	277	0.096915875973	94
+65	318	0.096937315973	114
+65	452	0.107285967093	138
+65	464	0.107294767093	90
+65	838	5.096480400613	138
+65	862	5.096493040613	138
+65	880	5.096501440613	82
+65	896	5.096933315973	64
+66	173	0.096850735973	86
+66	191	0.096863415973	70
+66	212	0.096884095973	110
+66	230	0.096893535973	98
+66	257	0.096906855973	90
+66	278	0.096915975973	94
+66	319	0.096937415973	114
+66	454	0.107286067093	138
+66	466	0.107294867093	90
+66	839	5.096480500613	138
+66	863	5.096493140613	138
+66	881	5.096501540613	82
+66	897	5.096933415973	64
+67	173	0.096850735973	86
+67	191	0.096863415973	70
+67	212	0.096884095973	110
+67	230	0.096893535973	98
+67	257	0.096906855973	90
+67	278	0.096915975973	94
+67	319	0.096937415973	114
+67	454	0.107286067093	138
+67	466	0.107294867093	90
+67	839	5.096480500613	138
+67	863	5.096493140613	138
+67	881	5.096501540613	82
+67	897	5.096933415973	64
+68	334	0.107198867093	688
+68	351	0.107212827093	560
+68	369	0.107225507093	720
+68	392	0.107247787093	560
+68	393	0.107247787093	976
+68	408	0.107255307093	720
+68	498	0.107313107093	912
+68	794	5.096456940613	1104
+68	805	5.096458900613	1104
+69	334	0.1	0
+69	794	0.2	51360
+69	794	0.3	0
+69	794	0.4	0
+69	794	0.5	0
+69	794	0.6	0
+69	794	0.7	0
+69	794	0.8	0
+69	794	0.9	0
+69	794	1	0
+69	794	1.1	0
+69	794	1.2	0
+69	794	1.3	0
+69	794	1.4	0
+69	794	1.5	0
+69	794	1.6	0
+69	794	1.7	0
+69	794	1.8	0
+69	794	1.9	0
+69	794	2	0
+69	794	2.1	0
+69	794	2.2	0
+69	794	2.3	0
+69	794	2.4	0
+69	794	2.5	0
+69	794	2.6	0
+69	794	2.7	0
+69	794	2.8	0
+69	794	2.9	0
+69	794	3	0
+69	794	3.1	0
+69	794	3.2	0
+69	794	3.3	0
+69	794	3.4	0
+69	794	3.5	0
+69	794	3.6	0
+69	794	3.7	0
+69	794	3.8	0
+69	794	3.9	0
+69	794	4	0
+69	794	4.1	0
+69	794	4.2	0
+69	794	4.3	0
+69	794	4.4	0
+69	794	4.5	0
+69	794	4.6	0
+69	794	4.7	0
+69	794	4.8	0
+69	794	4.9	0
+69	794	5	0
+70	334	0.107198867093	0
+70	351	0.107212827093	0
+70	369	0.107225507093	0
+70	392	0.107247787093	0
+70	400	0.107254987093	7.2e-06
+70	430	0.107266347093	1.104e-05
+70	498	0.107313107093	0
+70	794	5.096456940613	0
+70	827	5.096469580613	1.068e-05
+71	334	0.107198867093	688
+71	351	0.107212827093	560
+71	369	0.107225507093	720
+71	392	0.107247787093	560
+71	400	0.107254987093	976
+71	430	0.107266347093	720
+71	498	0.107313107093	912
+71	794	5.096456940613	1104
+71	827	5.096469580613	1104
+72	334	0.1	0
+72	794	0.2	51360
+72	794	0.3	0
+72	794	0.4	0
+72	794	0.5	0
+72	794	0.6	0
+72	794	0.7	0
+72	794	0.8	0
+72	794	0.9	0
+72	794	1	0
+72	794	1.1	0
+72	794	1.2	0
+72	794	1.3	0
+72	794	1.4	0
+72	794	1.5	0
+72	794	1.6	0
+72	794	1.7	0
+72	794	1.8	0
+72	794	1.9	0
+72	794	2	0
+72	794	2.1	0
+72	794	2.2	0
+72	794	2.3	0
+72	794	2.4	0
+72	794	2.5	0
+72	794	2.6	0
+72	794	2.7	0
+72	794	2.8	0
+72	794	2.9	0
+72	794	3	0
+72	794	3.1	0
+72	794	3.2	0
+72	794	3.3	0
+72	794	3.4	0
+72	794	3.5	0
+72	794	3.6	0
+72	794	3.7	0
+72	794	3.8	0
+72	794	3.9	0
+72	794	4	0
+72	794	4.1	0
+72	794	4.2	0
+72	794	4.3	0
+72	794	4.4	0
+72	794	4.5	0
+72	794	4.6	0
+72	794	4.7	0
+72	794	4.8	0
+72	794	4.9	0
+72	794	5	0
+73	334	0.107198867093	86
+73	351	0.107212827093	70
+73	369	0.107225507093	90
+73	392	0.107247787093	70
+73	400	0.107254987093	122
+73	430	0.107266347093	90
+73	498	0.107313107093	114
+73	794	5.096456940613	138
+73	827	5.096469580613	138
+74	334	0.107198867093	0
+74	351	0.107212827093	0
+74	369	0.107225507093	0
+74	392	0.107247787093	0
+74	393	0.107247787093	1
+74	400	0.107254987093	0
+74	408	0.107255307093	1
+74	430	0.107266347093	0
+74	498	0.107313107093	0
+74	794	5.096456940613	0
+74	805	5.096458900613	1
+74	827	5.096469580613	0
+75	334	0.107198867093	0
+75	351	0.107212827093	0
+75	369	0.107225507093	0
+75	392	0.107247787093	0
+75	393	0.107247787093	976
+75	400	0.107254987093	0
+75	408	0.107255307093	720
+75	430	0.107266347093	0
+75	498	0.107313107093	0
+75	794	5.096456940613	0
+75	805	5.096458900613	1104
+75	827	5.096469580613	0
+76	335	0.107206387093	86
+76	353	0.107219067093	70
+76	371	0.107233347093	90
+76	395	0.107254027093	70
+76	410	0.107265387093	122
+76	431	0.107274187093	90
+76	500	0.107322867093	114
+76	814	5.096468620613	138
+76	843	5.096481260613	138
+77	336	0.107206487093	86
+77	354	0.107219167093	70
+77	372	0.107233447093	90
+77	396	0.107254127093	70
+77	411	0.107265487093	122
+77	432	0.107274287093	90
+77	501	0.107322967093	114
+77	816	5.096468720613	138
+77	844	5.096481360613	138
+78	336	0.107206487093	86
+78	354	0.107219167093	70
+78	372	0.107233447093	90
+78	396	0.107254127093	70
+78	411	0.107265487093	122
+78	432	0.107274287093	90
+78	501	0.107322967093	114
+78	816	5.096468720613	138
+78	844	5.096481360613	138
+79	342	0.1	6560
+79	779	0.2	82240
+79	779	0.3	0
+79	779	0.4	0
+79	779	0.5	0
+79	779	0.6	0
+79	779	0.7	0
+79	779	0.8	0
+79	779	0.9	0
+79	779	1	0
+79	779	1.1	0
+79	779	1.2	0
+79	779	1.3	0
+79	779	1.4	0
+79	779	1.5	0
+79	779	1.6	0
+79	779	1.7	0
+79	779	1.8	0
+79	779	1.9	0
+79	779	2	0
+79	779	2.1	0
+79	779	2.2	0
+79	779	2.3	0
+79	779	2.4	0
+79	779	2.5	0
+79	779	2.6	0
+79	779	2.7	0
+79	779	2.8	0
+79	779	2.9	0
+79	779	3	0
+79	779	3.1	0
+79	779	3.2	0
+79	779	3.3	0
+79	779	3.4	0
+79	779	3.5	0
+79	779	3.6	0
+79	779	3.7	0
+79	779	3.8	0
+79	779	3.9	0
+79	779	4	0
+79	779	4.1	0
+79	779	4.2	0
+79	779	4.3	0
+79	779	4.4	0
+79	779	4.5	0
+79	779	4.6	0
+79	779	4.7	0
+79	779	4.8	0
+79	779	4.9	0
+79	779	5	0
+80	342	0.1	6560
+80	779	0.2	82240
+80	779	0.3	0
+80	779	0.4	0
+80	779	0.5	0
+80	779	0.6	0
+80	779	0.7	0
+80	779	0.8	0
+80	779	0.9	0
+80	779	1	0
+80	779	1.1	0
+80	779	1.2	0
+80	779	1.3	0
+80	779	1.4	0
+80	779	1.5	0
+80	779	1.6	0
+80	779	1.7	0
+80	779	1.8	0
+80	779	1.9	0
+80	779	2	0
+80	779	2.1	0
+80	779	2.2	0
+80	779	2.3	0
+80	779	2.4	0
+80	779	2.5	0
+80	779	2.6	0
+80	779	2.7	0
+80	779	2.8	0
+80	779	2.9	0
+80	779	3	0
+80	779	3.1	0
+80	779	3.2	0
+80	779	3.3	0
+80	779	3.4	0
+80	779	3.5	0
+80	779	3.6	0
+80	779	3.7	0
+80	779	3.8	0
+80	779	3.9	0
+80	779	4	0
+80	779	4.1	0
+80	779	4.2	0
+80	779	4.3	0
+80	779	4.4	0
+80	779	4.5	0
+80	779	4.6	0
+80	779	4.7	0
+80	779	4.8	0
+80	779	4.9	0
+80	779	5	0
+81	443	0.1	52960
+81	822	0.2	18240
+81	822	0.3	0
+81	822	0.4	0
+81	822	0.5	0
+81	822	0.6	0
+81	822	0.7	0
+81	822	0.8	0
+81	822	0.9	0
+81	822	1	0
+81	822	1.1	0
+81	822	1.2	0
+81	822	1.3	0
+81	822	1.4	0
+81	822	1.5	0
+81	822	1.6	0
+81	822	1.7	0
+81	822	1.8	0
+81	822	1.9	0
+81	822	2	0
+81	822	2.1	0
+81	822	2.2	0
+81	822	2.3	0
+81	822	2.4	0
+81	822	2.5	0
+81	822	2.6	0
+81	822	2.7	0
+81	822	2.8	0
+81	822	2.9	0
+81	822	3	0
+81	822	3.1	0
+81	822	3.2	0
+81	822	3.3	0
+81	822	3.4	0
+81	822	3.5	0
+81	822	3.6	0
+81	822	3.7	0
+81	822	3.8	0
+81	822	3.9	0
+81	822	4	0
+81	822	4.1	0
+81	822	4.2	0
+81	822	4.3	0
+81	822	4.4	0
+81	822	4.5	0
+81	822	4.6	0
+81	822	4.7	0
+81	822	4.8	0
+81	822	4.9	0
+81	822	5	0
+82	443	0.1	52960
+82	822	0.2	18240
+82	822	0.3	0
+82	822	0.4	0
+82	822	0.5	0
+82	822	0.6	0
+82	822	0.7	0
+82	822	0.8	0
+82	822	0.9	0
+82	822	1	0
+82	822	1.1	0
+82	822	1.2	0
+82	822	1.3	0
+82	822	1.4	0
+82	822	1.5	0
+82	822	1.6	0
+82	822	1.7	0
+82	822	1.8	0
+82	822	1.9	0
+82	822	2	0
+82	822	2.1	0
+82	822	2.2	0
+82	822	2.3	0
+82	822	2.4	0
+82	822	2.5	0
+82	822	2.6	0
+82	822	2.7	0
+82	822	2.8	0
+82	822	2.9	0
+82	822	3	0
+82	822	3.1	0
+82	822	3.2	0
+82	822	3.3	0
+82	822	3.4	0
+82	822	3.5	0
+82	822	3.6	0
+82	822	3.7	0
+82	822	3.8	0
+82	822	3.9	0
+82	822	4	0
+82	822	4.1	0
+82	822	4.2	0
+82	822	4.3	0
+82	822	4.4	0
+82	822	4.5	0
+82	822	4.6	0
+82	822	4.7	0
+82	822	4.8	0
+82	822	4.9	0
+82	822	5	0
+83	476	0.1	74240
+83	732	0.2	7200
+83	732	0.3	0
+83	732	0.4	0
+83	732	0.5	0
+83	732	0.6	0
+83	732	0.7	0
+83	732	0.8	0
+83	732	0.9	0
+83	732	1	0
+83	732	1.1	0
+83	732	1.2	0
+83	732	1.3	0
+83	732	1.4	0
+83	732	1.5	0
+83	732	1.6	0
+83	732	1.7	0
+83	732	1.8	0
+83	732	1.9	0
+83	732	2	0
+83	732	2.1	0
+83	732	2.2	0
+83	732	2.3	0
+83	732	2.4	0
+83	732	2.5	0
+83	732	2.6	0
+83	732	2.7	0
+83	732	2.8	0
+83	732	2.9	0
+83	732	3	0
+83	732	3.1	0
+83	732	3.2	0
+83	732	3.3	0
+83	732	3.4	0
+83	732	3.5	0
+83	732	3.6	0
+83	732	3.7	0
+83	732	3.8	0
+83	732	3.9	0
+83	732	4	0
+83	732	4.1	0
+83	732	4.2	0
+83	732	4.3	0
+83	732	4.4	0
+83	732	4.5	0
+83	732	4.6	0
+83	732	4.7	0
+83	732	4.8	0
+83	732	4.9	0
+83	732	5	0
+84	476	0.1	74240
+84	732	0.2	7200
+84	732	0.3	0
+84	732	0.4	0
+84	732	0.5	0
+84	732	0.6	0
+84	732	0.7	0
+84	732	0.8	0
+84	732	0.9	0
+84	732	1	0
+84	732	1.1	0
+84	732	1.2	0
+84	732	1.3	0
+84	732	1.4	0
+84	732	1.5	0
+84	732	1.6	0
+84	732	1.7	0
+84	732	1.8	0
+84	732	1.9	0
+84	732	2	0
+84	732	2.1	0
+84	732	2.2	0
+84	732	2.3	0
+84	732	2.4	0
+84	732	2.5	0
+84	732	2.6	0
+84	732	2.7	0
+84	732	2.8	0
+84	732	2.9	0
+84	732	3	0
+84	732	3.1	0
+84	732	3.2	0
+84	732	3.3	0
+84	732	3.4	0
+84	732	3.5	0
+84	732	3.6	0
+84	732	3.7	0
+84	732	3.8	0
+84	732	3.9	0
+84	732	4	0
+84	732	4.1	0
+84	732	4.2	0
+84	732	4.3	0
+84	732	4.4	0
+84	732	4.5	0
+84	732	4.6	0
+84	732	4.7	0
+84	732	4.8	0
+84	732	4.9	0
+84	732	5	0
+85	515	0.10852570675	656
+86	515	0.1	0
+87	515	0.10852570675	0
+88	515	0.10852570675	656
+89	515	0.1	0
+90	515	0.10852570675	82
+91	515	0.10852570675	0
+92	515	0.10852570675	0
+93	516	0.10853290675	82
+94	517	0.10853300675	82
+95	517	0.10853300675	82
+96	518	0.10853300675	64
+97	520	0.10853300675	64
+98	521	0.10853300675	656
+99	521	0.1	0
+100	521	0.10853300675	0
+101	521	0.10853300675	656
+102	521	0.1	0
+103	521	0.10853300675	82
+104	521	0.10853300675	0
+105	521	0.10853300675	0
+106	523	0.10854020675	82
+107	524	0.10854030675	82
+108	524	0.10854030675	82
+109	525	0.10854030675	64
+110	531	0.108847807824	688
+110	548	0.108861767824	560
+110	568	0.108884047824	1520
+110	569	0.108884047824	784
+110	611	0.108913847824	1008
+110	767	5.096445160613	1104
+111	531	0.1	0
+111	767	0.2	45600
+111	767	0.3	0
+111	767	0.4	0
+111	767	0.5	0
+111	767	0.6	0
+111	767	0.7	0
+111	767	0.8	0
+111	767	0.9	0
+111	767	1	0
+111	767	1.1	0
+111	767	1.2	0
+111	767	1.3	0
+111	767	1.4	0
+111	767	1.5	0
+111	767	1.6	0
+111	767	1.7	0
+111	767	1.8	0
+111	767	1.9	0
+111	767	2	0
+111	767	2.1	0
+111	767	2.2	0
+111	767	2.3	0
+111	767	2.4	0
+111	767	2.5	0
+111	767	2.6	0
+111	767	2.7	0
+111	767	2.8	0
+111	767	2.9	0
+111	767	3	0
+111	767	3.1	0
+111	767	3.2	0
+111	767	3.3	0
+111	767	3.4	0
+111	767	3.5	0
+111	767	3.6	0
+111	767	3.7	0
+111	767	3.8	0
+111	767	3.9	0
+111	767	4	0
+111	767	4.1	0
+111	767	4.2	0
+111	767	4.3	0
+111	767	4.4	0
+111	767	4.5	0
+111	767	4.6	0
+111	767	4.7	0
+111	767	4.8	0
+111	767	4.9	0
+111	767	5	0
+112	531	0.108847807824	0
+112	548	0.108861767824	0
+112	568	0.108884047824	0
+112	582	0.108900847824	1.68e-05
+112	611	0.108913847824	0
+112	767	5.096445160613	0
+113	531	0.108847807824	688
+113	548	0.108861767824	560
+113	568	0.108884047824	1520
+113	582	0.108900847824	784
+113	611	0.108913847824	1008
+113	767	5.096445160613	1104
+114	531	0.1	0
+114	767	0.2	45600
+114	767	0.3	0
+114	767	0.4	0
+114	767	0.5	0
+114	767	0.6	0
+114	767	0.7	0
+114	767	0.8	0
+114	767	0.9	0
+114	767	1	0
+114	767	1.1	0
+114	767	1.2	0
+114	767	1.3	0
+114	767	1.4	0
+114	767	1.5	0
+114	767	1.6	0
+114	767	1.7	0
+114	767	1.8	0
+114	767	1.9	0
+114	767	2	0
+114	767	2.1	0
+114	767	2.2	0
+114	767	2.3	0
+114	767	2.4	0
+114	767	2.5	0
+114	767	2.6	0
+114	767	2.7	0
+114	767	2.8	0
+114	767	2.9	0
+114	767	3	0
+114	767	3.1	0
+114	767	3.2	0
+114	767	3.3	0
+114	767	3.4	0
+114	767	3.5	0
+114	767	3.6	0
+114	767	3.7	0
+114	767	3.8	0
+114	767	3.9	0
+114	767	4	0
+114	767	4.1	0
+114	767	4.2	0
+114	767	4.3	0
+114	767	4.4	0
+114	767	4.5	0
+114	767	4.6	0
+114	767	4.7	0
+114	767	4.8	0
+114	767	4.9	0
+114	767	5	0
+115	531	0.108847807824	86
+115	548	0.108861767824	70
+115	568	0.108884047824	190
+115	582	0.108900847824	98
+115	611	0.108913847824	126
+115	767	5.096445160613	138
+116	531	0.108847807824	0
+116	548	0.108861767824	0
+116	568	0.108884047824	0
+116	569	0.108884047824	1
+116	582	0.108900847824	0
+116	611	0.108913847824	0
+116	767	5.096445160613	0
+117	531	0.108847807824	0
+117	548	0.108861767824	0
+117	568	0.108884047824	0
+117	569	0.108884047824	784
+117	582	0.108900847824	0
+117	611	0.108913847824	0
+117	767	5.096445160613	0
+118	532	0.108855327824	86
+118	550	0.108868007824	70
+118	571	0.108899887824	190
+118	589	0.108909327824	98
+118	614	0.108924567824	126
+118	787	5.096456840613	138
+119	533	0.108855427824	86
+119	551	0.108868107824	70
+119	572	0.108899987824	190
+119	590	0.108909427824	98
+119	619	0.108924667824	126
+119	788	5.096456940613	138
+120	533	0.108855427824	86
+120	551	0.108868107824	70
+120	572	0.108899987824	190
+120	590	0.108909427824	98
+120	619	0.108924667824	126
+120	788	5.096456940613	138
+121	539	0.1	6560
+121	806	0.2	59680
+121	806	0.3	0
+121	806	0.4	0
+121	806	0.5	0
+121	806	0.6	0
+121	806	0.7	0
+121	806	0.8	0
+121	806	0.9	0
+121	806	1	0
+121	806	1.1	0
+121	806	1.2	0
+121	806	1.3	0
+121	806	1.4	0
+121	806	1.5	0
+121	806	1.6	0
+121	806	1.7	0
+121	806	1.8	0
+121	806	1.9	0
+121	806	2	0
+121	806	2.1	0
+121	806	2.2	0
+121	806	2.3	0
+121	806	2.4	0
+121	806	2.5	0
+121	806	2.6	0
+121	806	2.7	0
+121	806	2.8	0
+121	806	2.9	0
+121	806	3	0
+121	806	3.1	0
+121	806	3.2	0
+121	806	3.3	0
+121	806	3.4	0
+121	806	3.5	0
+121	806	3.6	0
+121	806	3.7	0
+121	806	3.8	0
+121	806	3.9	0
+121	806	4	0
+121	806	4.1	0
+121	806	4.2	0
+121	806	4.3	0
+121	806	4.4	0
+121	806	4.5	0
+121	806	4.6	0
+121	806	4.7	0
+121	806	4.8	0
+121	806	4.9	0
+121	806	5	0
+122	539	0.1	6560
+122	806	0.2	59680
+122	806	0.3	0
+122	806	0.4	0
+122	806	0.5	0
+122	806	0.6	0
+122	806	0.7	0
+122	806	0.8	0
+122	806	0.9	0
+122	806	1	0
+122	806	1.1	0
+122	806	1.2	0
+122	806	1.3	0
+122	806	1.4	0
+122	806	1.5	0
+122	806	1.6	0
+122	806	1.7	0
+122	806	1.8	0
+122	806	1.9	0
+122	806	2	0
+122	806	2.1	0
+122	806	2.2	0
+122	806	2.3	0
+122	806	2.4	0
+122	806	2.5	0
+122	806	2.6	0
+122	806	2.7	0
+122	806	2.8	0
+122	806	2.9	0
+122	806	3	0
+122	806	3.1	0
+122	806	3.2	0
+122	806	3.3	0
+122	806	3.4	0
+122	806	3.5	0
+122	806	3.6	0
+122	806	3.7	0
+122	806	3.8	0
+122	806	3.9	0
+122	806	4	0
+122	806	4.1	0
+122	806	4.2	0
+122	806	4.3	0
+122	806	4.4	0
+122	806	4.5	0
+122	806	4.6	0
+122	806	4.7	0
+122	806	4.8	0
+122	806	4.9	0
+122	806	5	0
+123	640	0.119763288281	656
+124	640	0.1	0
+125	640	0.119763288281	0
+126	640	0.119763288281	656
+127	640	0.1	0
+128	640	0.119763288281	82
+129	640	0.119763288281	0
+130	640	0.119763288281	0
+131	641	0.119770488281	82
+132	642	0.119770588281	82
+133	642	0.119770588281	82
+134	643	0.119770588281	64
+135	645	0.119770588281	64
+136	646	0.119770588281	656
+137	646	0.1	0
+138	646	0.119770588281	0
+139	646	0.119770588281	656
+140	646	0.1	0
+141	646	0.119770588281	82
+142	646	0.119770588281	0
+143	646	0.119770588281	0
+144	648	0.119777788281	82
+145	649	0.119777888281	82
+146	649	0.119777888281	82
+147	650	0.119777888281	64
+148	724	5.096414720613	28
+149	726	0.1	57280
+149	726	0.2	0
+149	726	0.3	0
+149	726	0.4	0
+149	726	0.5	0
+149	726	0.6	0
+149	726	0.7	0
+149	726	0.8	0
+149	726	0.9	0
+149	726	1	0
+149	726	1.1	0
+149	726	1.2	0
+149	726	1.3	0
+149	726	1.4	0
+149	726	1.5	0
+149	726	1.6	0
+149	726	1.7	0
+149	726	1.8	0
+149	726	1.9	0
+149	726	2	0
+149	726	2.1	0
+149	726	2.2	0
+149	726	2.3	0
+149	726	2.4	0
+149	726	2.5	0
+149	726	2.6	0
+149	726	2.7	0
+149	726	2.8	0
+149	726	2.9	0
+149	726	3	0
+149	726	3.1	0
+149	726	3.2	0
+149	726	3.3	0
+149	726	3.4	0
+149	726	3.5	0
+149	726	3.6	0
+149	726	3.7	0
+149	726	3.8	0
+149	726	3.9	0
+149	726	4	0
+149	726	4.1	0
+149	726	4.2	0
+149	726	4.3	0
+149	726	4.4	0
+149	726	4.5	0
+149	726	4.6	0
+149	726	4.7	0
+149	726	4.8	0
+149	726	4.9	0
+149	726	5	0
+150	726	0.1	57280
+150	726	0.2	0
+150	726	0.3	0
+150	726	0.4	0
+150	726	0.5	0
+150	726	0.6	0
+150	726	0.7	0
+150	726	0.8	0
+150	726	0.9	0
+150	726	1	0
+150	726	1.1	0
+150	726	1.2	0
+150	726	1.3	0
+150	726	1.4	0
+150	726	1.5	0
+150	726	1.6	0
+150	726	1.7	0
+150	726	1.8	0
+150	726	1.9	0
+150	726	2	0
+150	726	2.1	0
+150	726	2.2	0
+150	726	2.3	0
+150	726	2.4	0
+150	726	2.5	0
+150	726	2.6	0
+150	726	2.7	0
+150	726	2.8	0
+150	726	2.9	0
+150	726	3	0
+150	726	3.1	0
+150	726	3.2	0
+150	726	3.3	0
+150	726	3.4	0
+150	726	3.5	0
+150	726	3.6	0
+150	726	3.7	0
+150	726	3.8	0
+150	726	3.9	0
+150	726	4	0
+150	726	4.1	0
+150	726	4.2	0
+150	726	4.3	0
+150	726	4.4	0
+150	726	4.5	0
+150	726	4.6	0
+150	726	4.7	0
+150	726	4.8	0
+150	726	4.9	0
+150	726	5	0
+151	730	5.096420580613	28
+151	899	5.096933415973	28
+152	752	0.1	69920
+152	752	0.2	0
+152	752	0.3	0
+152	752	0.4	0
+152	752	0.5	0
+152	752	0.6	0
+152	752	0.7	0
+152	752	0.8	0
+152	752	0.9	0
+152	752	1	0
+152	752	1.1	0
+152	752	1.2	0
+152	752	1.3	0
+152	752	1.4	0
+152	752	1.5	0
+152	752	1.6	0
+152	752	1.7	0
+152	752	1.8	0
+152	752	1.9	0
+152	752	2	0
+152	752	2.1	0
+152	752	2.2	0
+152	752	2.3	0
+152	752	2.4	0
+152	752	2.5	0
+152	752	2.6	0
+152	752	2.7	0
+152	752	2.8	0
+152	752	2.9	0
+152	752	3	0
+152	752	3.1	0
+152	752	3.2	0
+152	752	3.3	0
+152	752	3.4	0
+152	752	3.5	0
+152	752	3.6	0
+152	752	3.7	0
+152	752	3.8	0
+152	752	3.9	0
+152	752	4	0
+152	752	4.1	0
+152	752	4.2	0
+152	752	4.3	0
+152	752	4.4	0
+152	752	4.5	0
+152	752	4.6	0
+152	752	4.7	0
+152	752	4.8	0
+152	752	4.9	0
+152	752	5	0
+153	752	0.1	69920
+153	752	0.2	0
+153	752	0.3	0
+153	752	0.4	0
+153	752	0.5	0
+153	752	0.6	0
+153	752	0.7	0
+153	752	0.8	0
+153	752	0.9	0
+153	752	1	0
+153	752	1.1	0
+153	752	1.2	0
+153	752	1.3	0
+153	752	1.4	0
+153	752	1.5	0
+153	752	1.6	0
+153	752	1.7	0
+153	752	1.8	0
+153	752	1.9	0
+153	752	2	0
+153	752	2.1	0
+153	752	2.2	0
+153	752	2.3	0
+153	752	2.4	0
+153	752	2.5	0
+153	752	2.6	0
+153	752	2.7	0
+153	752	2.8	0
+153	752	2.9	0
+153	752	3	0
+153	752	3.1	0
+153	752	3.2	0
+153	752	3.3	0
+153	752	3.4	0
+153	752	3.5	0
+153	752	3.6	0
+153	752	3.7	0
+153	752	3.8	0
+153	752	3.9	0
+153	752	4	0
+153	752	4.1	0
+153	752	4.2	0
+153	752	4.3	0
+153	752	4.4	0
+153	752	4.5	0
+153	752	4.6	0
+153	752	4.7	0
+153	752	4.8	0
+153	752	4.9	0
+153	752	5	0
+154	893	5.096927555973	28
+vector 155 OspfRouting.H1.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr moduledisplaypath OspfRouting.Giang.eth[0].queue
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 156 OspfRouting.H1.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr moduledisplaypath OspfRouting.Giang.eth[0].queue
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 157 OspfRouting.H2.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr moduledisplaypath OspfRouting.Trang.eth[0].queue
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 158 OspfRouting.H2.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr moduledisplaypath OspfRouting.Trang.eth[0].queue
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 159 OspfRouting.SW1.ieee8021q.qTagHeaderChecker droppedDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetDropped)
+attr title "dropped data rate"
+attr unit bps
+vector 160 OspfRouting.SW1.ieee8021r.rTagHeaderChecker droppedDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetDropped)
+attr title "dropped data rate"
+attr unit bps
+vector 161 OspfRouting.SW1.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 162 OspfRouting.SW1.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 163 OspfRouting.SW2.ieee8021q.qTagHeaderChecker droppedDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetDropped)
+attr title "dropped data rate"
+attr unit bps
+vector 164 OspfRouting.SW2.ieee8021r.rTagHeaderChecker droppedDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetDropped)
+attr title "dropped data rate"
+attr unit bps
+vector 165 OspfRouting.SW2.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 166 OspfRouting.SW2.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+69	901	5.096933430061	22778.519223043
+72	901	5.096933430061	22778.519223043
+79	901	5.096933430061	10398.88921052
+80	901	5.096933430061	10398.88921052
+81	901	5.096933430061	33342.470167063
+82	901	5.096933430061	33342.470167063
+83	901	5.096933430061	21458.025355041
+84	901	5.096933430061	21458.025355041
+86	901	0.2	6560
+86	901	0.3	0
+86	901	0.4	0
+86	901	0.5	0
+86	901	0.6	0
+86	901	0.7	0
+86	901	0.8	0
+86	901	0.9	0
+86	901	1	0
+86	901	1.1	0
+86	901	1.2	0
+86	901	1.3	0
+86	901	1.4	0
+86	901	1.5	0
+86	901	1.6	0
+86	901	1.7	0
+86	901	1.8	0
+86	901	1.9	0
+86	901	2	0
+86	901	2.1	0
+86	901	2.2	0
+86	901	2.3	0
+86	901	2.4	0
+86	901	2.5	0
+86	901	2.6	0
+86	901	2.7	0
+86	901	2.8	0
+86	901	2.9	0
+86	901	3	0
+86	901	3.1	0
+86	901	3.2	0
+86	901	3.3	0
+86	901	3.4	0
+86	901	3.5	0
+86	901	3.6	0
+86	901	3.7	0
+86	901	3.8	0
+86	901	3.9	0
+86	901	4	0
+86	901	4.1	0
+86	901	4.2	0
+86	901	4.3	0
+86	901	4.4	0
+86	901	4.5	0
+86	901	4.6	0
+86	901	4.7	0
+86	901	4.8	0
+86	901	4.9	0
+86	901	5	0
+86	901	5.096933430061	0
+89	901	0.2	6560
+89	901	0.3	0
+89	901	0.4	0
+89	901	0.5	0
+89	901	0.6	0
+89	901	0.7	0
+89	901	0.8	0
+89	901	0.9	0
+89	901	1	0
+89	901	1.1	0
+89	901	1.2	0
+89	901	1.3	0
+89	901	1.4	0
+89	901	1.5	0
+89	901	1.6	0
+89	901	1.7	0
+89	901	1.8	0
+89	901	1.9	0
+89	901	2	0
+89	901	2.1	0
+89	901	2.2	0
+89	901	2.3	0
+89	901	2.4	0
+89	901	2.5	0
+89	901	2.6	0
+89	901	2.7	0
+89	901	2.8	0
+89	901	2.9	0
+89	901	3	0
+89	901	3.1	0
+89	901	3.2	0
+89	901	3.3	0
+89	901	3.4	0
+89	901	3.5	0
+89	901	3.6	0
+89	901	3.7	0
+89	901	3.8	0
+89	901	3.9	0
+89	901	4	0
+89	901	4.1	0
+89	901	4.2	0
+89	901	4.3	0
+89	901	4.4	0
+89	901	4.5	0
+89	901	4.6	0
+89	901	4.7	0
+89	901	4.8	0
+89	901	4.9	0
+89	901	5	0
+89	901	5.096933430061	0
+99	901	0.2	6560
+99	901	0.3	0
+99	901	0.4	0
+99	901	0.5	0
+99	901	0.6	0
+99	901	0.7	0
+99	901	0.8	0
+99	901	0.9	0
+99	901	1	0
+99	901	1.1	0
+99	901	1.2	0
+99	901	1.3	0
+99	901	1.4	0
+99	901	1.5	0
+99	901	1.6	0
+99	901	1.7	0
+99	901	1.8	0
+99	901	1.9	0
+99	901	2	0
+99	901	2.1	0
+99	901	2.2	0
+99	901	2.3	0
+99	901	2.4	0
+99	901	2.5	0
+99	901	2.6	0
+99	901	2.7	0
+99	901	2.8	0
+99	901	2.9	0
+99	901	3	0
+99	901	3.1	0
+99	901	3.2	0
+99	901	3.3	0
+99	901	3.4	0
+99	901	3.5	0
+99	901	3.6	0
+99	901	3.7	0
+99	901	3.8	0
+99	901	3.9	0
+99	901	4	0
+99	901	4.1	0
+99	901	4.2	0
+99	901	4.3	0
+99	901	4.4	0
+99	901	4.5	0
+99	901	4.6	0
+99	901	4.7	0
+99	901	4.8	0
+99	901	4.9	0
+99	901	5	0
+99	901	5.096933430061	0
+102	901	0.2	6560
+102	901	0.3	0
+102	901	0.4	0
+102	901	0.5	0
+102	901	0.6	0
+102	901	0.7	0
+102	901	0.8	0
+102	901	0.9	0
+102	901	1	0
+102	901	1.1	0
+102	901	1.2	0
+102	901	1.3	0
+102	901	1.4	0
+102	901	1.5	0
+102	901	1.6	0
+102	901	1.7	0
+102	901	1.8	0
+102	901	1.9	0
+102	901	2	0
+102	901	2.1	0
+102	901	2.2	0
+102	901	2.3	0
+102	901	2.4	0
+102	901	2.5	0
+102	901	2.6	0
+102	901	2.7	0
+102	901	2.8	0
+102	901	2.9	0
+102	901	3	0
+102	901	3.1	0
+102	901	3.2	0
+102	901	3.3	0
+102	901	3.4	0
+102	901	3.5	0
+102	901	3.6	0
+102	901	3.7	0
+102	901	3.8	0
+102	901	3.9	0
+102	901	4	0
+102	901	4.1	0
+102	901	4.2	0
+102	901	4.3	0
+102	901	4.4	0
+102	901	4.5	0
+102	901	4.6	0
+102	901	4.7	0
+102	901	4.8	0
+102	901	4.9	0
+102	901	5	0
+102	901	5.096933430061	0
+111	901	5.096933430061	11389.259611522
+114	901	5.096933430061	11389.259611522
+121	901	5.096933430061	11389.259611522
+122	901	5.096933430061	11389.259611522
+124	901	0.2	6560
+124	901	0.3	0
+124	901	0.4	0
+124	901	0.5	0
+124	901	0.6	0
+124	901	0.7	0
+124	901	0.8	0
+124	901	0.9	0
+124	901	1	0
+124	901	1.1	0
+124	901	1.2	0
+124	901	1.3	0
+124	901	1.4	0
+124	901	1.5	0
+124	901	1.6	0
+124	901	1.7	0
+124	901	1.8	0
+124	901	1.9	0
+124	901	2	0
+124	901	2.1	0
+124	901	2.2	0
+124	901	2.3	0
+124	901	2.4	0
+124	901	2.5	0
+124	901	2.6	0
+124	901	2.7	0
+124	901	2.8	0
+124	901	2.9	0
+124	901	3	0
+124	901	3.1	0
+124	901	3.2	0
+124	901	3.3	0
+124	901	3.4	0
+124	901	3.5	0
+124	901	3.6	0
+124	901	3.7	0
+124	901	3.8	0
+124	901	3.9	0
+124	901	4	0
+124	901	4.1	0
+124	901	4.2	0
+124	901	4.3	0
+124	901	4.4	0
+124	901	4.5	0
+124	901	4.6	0
+124	901	4.7	0
+124	901	4.8	0
+124	901	4.9	0
+124	901	5	0
+124	901	5.096933430061	0
+127	901	0.2	6560
+127	901	0.3	0
+127	901	0.4	0
+127	901	0.5	0
+127	901	0.6	0
+127	901	0.7	0
+127	901	0.8	0
+127	901	0.9	0
+127	901	1	0
+127	901	1.1	0
+127	901	1.2	0
+127	901	1.3	0
+127	901	1.4	0
+127	901	1.5	0
+127	901	1.6	0
+127	901	1.7	0
+127	901	1.8	0
+127	901	1.9	0
+127	901	2	0
+127	901	2.1	0
+127	901	2.2	0
+127	901	2.3	0
+127	901	2.4	0
+127	901	2.5	0
+127	901	2.6	0
+127	901	2.7	0
+127	901	2.8	0
+127	901	2.9	0
+127	901	3	0
+127	901	3.1	0
+127	901	3.2	0
+127	901	3.3	0
+127	901	3.4	0
+127	901	3.5	0
+127	901	3.6	0
+127	901	3.7	0
+127	901	3.8	0
+127	901	3.9	0
+127	901	4	0
+127	901	4.1	0
+127	901	4.2	0
+127	901	4.3	0
+127	901	4.4	0
+127	901	4.5	0
+127	901	4.6	0
+127	901	4.7	0
+127	901	4.8	0
+127	901	4.9	0
+127	901	5	0
+127	901	5.096933430061	0
+137	901	0.2	6560
+137	901	0.3	0
+137	901	0.4	0
+137	901	0.5	0
+137	901	0.6	0
+137	901	0.7	0
+137	901	0.8	0
+137	901	0.9	0
+137	901	1	0
+137	901	1.1	0
+137	901	1.2	0
+137	901	1.3	0
+137	901	1.4	0
+137	901	1.5	0
+137	901	1.6	0
+137	901	1.7	0
+137	901	1.8	0
+137	901	1.9	0
+137	901	2	0
+137	901	2.1	0
+137	901	2.2	0
+137	901	2.3	0
+137	901	2.4	0
+137	901	2.5	0
+137	901	2.6	0
+137	901	2.7	0
+137	901	2.8	0
+137	901	2.9	0
+137	901	3	0
+137	901	3.1	0
+137	901	3.2	0
+137	901	3.3	0
+137	901	3.4	0
+137	901	3.5	0
+137	901	3.6	0
+137	901	3.7	0
+137	901	3.8	0
+137	901	3.9	0
+137	901	4	0
+137	901	4.1	0
+137	901	4.2	0
+137	901	4.3	0
+137	901	4.4	0
+137	901	4.5	0
+137	901	4.6	0
+137	901	4.7	0
+137	901	4.8	0
+137	901	4.9	0
+137	901	5	0
+137	901	5.096933430061	0
+140	901	0.2	6560
+140	901	0.3	0
+140	901	0.4	0
+140	901	0.5	0
+140	901	0.6	0
+140	901	0.7	0
+140	901	0.8	0
+140	901	0.9	0
+140	901	1	0
+140	901	1.1	0
+140	901	1.2	0
+140	901	1.3	0
+140	901	1.4	0
+140	901	1.5	0
+140	901	1.6	0
+140	901	1.7	0
+140	901	1.8	0
+140	901	1.9	0
+140	901	2	0
+140	901	2.1	0
+140	901	2.2	0
+140	901	2.3	0
+140	901	2.4	0
+140	901	2.5	0
+140	901	2.6	0
+140	901	2.7	0
+140	901	2.8	0
+140	901	2.9	0
+140	901	3	0
+140	901	3.1	0
+140	901	3.2	0
+140	901	3.3	0
+140	901	3.4	0
+140	901	3.5	0
+140	901	3.6	0
+140	901	3.7	0
+140	901	3.8	0
+140	901	3.9	0
+140	901	4	0
+140	901	4.1	0
+140	901	4.2	0
+140	901	4.3	0
+140	901	4.4	0
+140	901	4.5	0
+140	901	4.6	0
+140	901	4.7	0
+140	901	4.8	0
+140	901	4.9	0
+140	901	5	0
+140	901	5.096933430061	0
+149	901	5.096933430061	45887.161913087
+150	901	5.096933430061	45887.161913087
+152	901	5.096933430061	32352.099766061
+153	901	5.096933430061	32352.099766061
+155	901	0.1	0
+155	901	0.2	0
+155	901	0.3	0
+155	901	0.4	0
+155	901	0.5	0
+155	901	0.6	0
+155	901	0.7	0
+155	901	0.8	0
+155	901	0.9	0
+155	901	1	0
+155	901	1.1	0
+155	901	1.2	0
+155	901	1.3	0
+155	901	1.4	0
+155	901	1.5	0
+155	901	1.6	0
+155	901	1.7	0
+155	901	1.8	0
+155	901	1.9	0
+155	901	2	0
+155	901	2.1	0
+155	901	2.2	0
+155	901	2.3	0
+155	901	2.4	0
+155	901	2.5	0
+155	901	2.6	0
+155	901	2.7	0
+155	901	2.8	0
+155	901	2.9	0
+155	901	3	0
+155	901	3.1	0
+155	901	3.2	0
+155	901	3.3	0
+155	901	3.4	0
+155	901	3.5	0
+155	901	3.6	0
+155	901	3.7	0
+155	901	3.8	0
+155	901	3.9	0
+155	901	4	0
+155	901	4.1	0
+155	901	4.2	0
+155	901	4.3	0
+155	901	4.4	0
+155	901	4.5	0
+155	901	4.6	0
+155	901	4.7	0
+155	901	4.8	0
+155	901	4.9	0
+155	901	5	0
+155	901	5.096933430061	0
+156	901	0.1	0
+156	901	0.2	0
+156	901	0.3	0
+156	901	0.4	0
+156	901	0.5	0
+156	901	0.6	0
+156	901	0.7	0
+156	901	0.8	0
+156	901	0.9	0
+156	901	1	0
+156	901	1.1	0
+156	901	1.2	0
+156	901	1.3	0
+156	901	1.4	0
+156	901	1.5	0
+156	901	1.6	0
+156	901	1.7	0
+156	901	1.8	0
+156	901	1.9	0
+156	901	2	0
+156	901	2.1	0
+156	901	2.2	0
+156	901	2.3	0
+156	901	2.4	0
+156	901	2.5	0
+156	901	2.6	0
+156	901	2.7	0
+156	901	2.8	0
+156	901	2.9	0
+156	901	3	0
+156	901	3.1	0
+156	901	3.2	0
+156	901	3.3	0
+156	901	3.4	0
+156	901	3.5	0
+156	901	3.6	0
+156	901	3.7	0
+156	901	3.8	0
+156	901	3.9	0
+156	901	4	0
+156	901	4.1	0
+156	901	4.2	0
+156	901	4.3	0
+156	901	4.4	0
+156	901	4.5	0
+156	901	4.6	0
+156	901	4.7	0
+156	901	4.8	0
+156	901	4.9	0
+156	901	5	0
+156	901	5.096933430061	0
+157	901	0.1	0
+157	901	0.2	0
+157	901	0.3	0
+157	901	0.4	0
+157	901	0.5	0
+157	901	0.6	0
+157	901	0.7	0
+157	901	0.8	0
+157	901	0.9	0
+157	901	1	0
+157	901	1.1	0
+157	901	1.2	0
+157	901	1.3	0
+157	901	1.4	0
+157	901	1.5	0
+157	901	1.6	0
+157	901	1.7	0
+157	901	1.8	0
+157	901	1.9	0
+157	901	2	0
+157	901	2.1	0
+157	901	2.2	0
+157	901	2.3	0
+157	901	2.4	0
+157	901	2.5	0
+157	901	2.6	0
+157	901	2.7	0
+157	901	2.8	0
+157	901	2.9	0
+157	901	3	0
+157	901	3.1	0
+157	901	3.2	0
+157	901	3.3	0
+157	901	3.4	0
+157	901	3.5	0
+157	901	3.6	0
+157	901	3.7	0
+157	901	3.8	0
+157	901	3.9	0
+157	901	4	0
+157	901	4.1	0
+157	901	4.2	0
+157	901	4.3	0
+157	901	4.4	0
+157	901	4.5	0
+157	901	4.6	0
+157	901	4.7	0
+157	901	4.8	0
+157	901	4.9	0
+157	901	5	0
+157	901	5.096933430061	0
+158	901	0.1	0
+158	901	0.2	0
+158	901	0.3	0
+158	901	0.4	0
+158	901	0.5	0
+158	901	0.6	0
+158	901	0.7	0
+158	901	0.8	0
+158	901	0.9	0
+158	901	1	0
+158	901	1.1	0
+158	901	1.2	0
+158	901	1.3	0
+158	901	1.4	0
+158	901	1.5	0
+158	901	1.6	0
+158	901	1.7	0
+158	901	1.8	0
+158	901	1.9	0
+158	901	2	0
+158	901	2.1	0
+158	901	2.2	0
+158	901	2.3	0
+158	901	2.4	0
+158	901	2.5	0
+158	901	2.6	0
+158	901	2.7	0
+158	901	2.8	0
+158	901	2.9	0
+158	901	3	0
+158	901	3.1	0
+158	901	3.2	0
+158	901	3.3	0
+158	901	3.4	0
+158	901	3.5	0
+158	901	3.6	0
+158	901	3.7	0
+158	901	3.8	0
+158	901	3.9	0
+158	901	4	0
+158	901	4.1	0
+158	901	4.2	0
+158	901	4.3	0
+158	901	4.4	0
+158	901	4.5	0
+158	901	4.6	0
+158	901	4.7	0
+158	901	4.8	0
+158	901	4.9	0
+158	901	5	0
+158	901	5.096933430061	0
+159	901	0.1	0
+159	901	0.2	0
+159	901	0.3	0
+159	901	0.4	0
+159	901	0.5	0
+159	901	0.6	0
+159	901	0.7	0
+159	901	0.8	0
+159	901	0.9	0
+159	901	1	0
+159	901	1.1	0
+159	901	1.2	0
+159	901	1.3	0
+159	901	1.4	0
+159	901	1.5	0
+159	901	1.6	0
+159	901	1.7	0
+159	901	1.8	0
+159	901	1.9	0
+159	901	2	0
+159	901	2.1	0
+159	901	2.2	0
+159	901	2.3	0
+159	901	2.4	0
+159	901	2.5	0
+159	901	2.6	0
+159	901	2.7	0
+159	901	2.8	0
+159	901	2.9	0
+159	901	3	0
+159	901	3.1	0
+159	901	3.2	0
+159	901	3.3	0
+159	901	3.4	0
+159	901	3.5	0
+159	901	3.6	0
+159	901	3.7	0
+159	901	3.8	0
+159	901	3.9	0
+159	901	4	0
+159	901	4.1	0
+159	901	4.2	0
+159	901	4.3	0
+159	901	4.4	0
+159	901	4.5	0
+159	901	4.6	0
+159	901	4.7	0
+159	901	4.8	0
+159	901	4.9	0
+159	901	5	0
+159	901	5.096933430061	0
+160	901	0.1	0
+160	901	0.2	0
+160	901	0.3	0
+160	901	0.4	0
+160	901	0.5	0
+160	901	0.6	0
+160	901	0.7	0
+160	901	0.8	0
+160	901	0.9	0
+160	901	1	0
+160	901	1.1	0
+160	901	1.2	0
+160	901	1.3	0
+160	901	1.4	0
+160	901	1.5	0
+160	901	1.6	0
+160	901	1.7	0
+160	901	1.8	0
+160	901	1.9	0
+160	901	2	0
+160	901	2.1	0
+160	901	2.2	0
+160	901	2.3	0
+160	901	2.4	0
+160	901	2.5	0
+160	901	2.6	0
+160	901	2.7	0
+160	901	2.8	0
+160	901	2.9	0
+160	901	3	0
+160	901	3.1	0
+160	901	3.2	0
+160	901	3.3	0
+160	901	3.4	0
+160	901	3.5	0
+160	901	3.6	0
+160	901	3.7	0
+160	901	3.8	0
+160	901	3.9	0
+160	901	4	0
+160	901	4.1	0
+160	901	4.2	0
+160	901	4.3	0
+160	901	4.4	0
+160	901	4.5	0
+160	901	4.6	0
+160	901	4.7	0
+160	901	4.8	0
+160	901	4.9	0
+160	901	5	0
+160	901	5.096933430061	0
+161	901	0.1	0
+161	901	0.2	0
+161	901	0.3	0
+161	901	0.4	0
+161	901	0.5	0
+161	901	0.6	0
+161	901	0.7	0
+161	901	0.8	0
+161	901	0.9	0
+161	901	1	0
+161	901	1.1	0
+161	901	1.2	0
+161	901	1.3	0
+161	901	1.4	0
+161	901	1.5	0
+161	901	1.6	0
+161	901	1.7	0
+161	901	1.8	0
+161	901	1.9	0
+161	901	2	0
+161	901	2.1	0
+161	901	2.2	0
+161	901	2.3	0
+161	901	2.4	0
+161	901	2.5	0
+161	901	2.6	0
+161	901	2.7	0
+161	901	2.8	0
+161	901	2.9	0
+161	901	3	0
+161	901	3.1	0
+161	901	3.2	0
+161	901	3.3	0
+161	901	3.4	0
+161	901	3.5	0
+161	901	3.6	0
+161	901	3.7	0
+161	901	3.8	0
+161	901	3.9	0
+161	901	4	0
+161	901	4.1	0
+161	901	4.2	0
+161	901	4.3	0
+161	901	4.4	0
+161	901	4.5	0
+161	901	4.6	0
+161	901	4.7	0
+161	901	4.8	0
+161	901	4.9	0
+161	901	5	0
+161	901	5.096933430061	0
+162	901	0.1	0
+162	901	0.2	0
+162	901	0.3	0
+162	901	0.4	0
+162	901	0.5	0
+162	901	0.6	0
+162	901	0.7	0
+162	901	0.8	0
+162	901	0.9	0
+162	901	1	0
+162	901	1.1	0
+162	901	1.2	0
+162	901	1.3	0
+162	901	1.4	0
+162	901	1.5	0
+162	901	1.6	0
+162	901	1.7	0
+162	901	1.8	0
+162	901	1.9	0
+162	901	2	0
+162	901	2.1	0
+162	901	2.2	0
+162	901	2.3	0
+162	901	2.4	0
+162	901	2.5	0
+162	901	2.6	0
+162	901	2.7	0
+162	901	2.8	0
+162	901	2.9	0
+162	901	3	0
+162	901	3.1	0
+162	901	3.2	0
+162	901	3.3	0
+162	901	3.4	0
+162	901	3.5	0
+162	901	3.6	0
+162	901	3.7	0
+162	901	3.8	0
+162	901	3.9	0
+162	901	4	0
+162	901	4.1	0
+162	901	4.2	0
+162	901	4.3	0
+162	901	4.4	0
+162	901	4.5	0
+162	901	4.6	0
+162	901	4.7	0
+162	901	4.8	0
+162	901	4.9	0
+162	901	5	0
+162	901	5.096933430061	0
+163	901	0.1	0
+163	901	0.2	0
+163	901	0.3	0
+163	901	0.4	0
+163	901	0.5	0
+163	901	0.6	0
+163	901	0.7	0
+163	901	0.8	0
+163	901	0.9	0
+163	901	1	0
+163	901	1.1	0
+163	901	1.2	0
+163	901	1.3	0
+163	901	1.4	0
+163	901	1.5	0
+163	901	1.6	0
+163	901	1.7	0
+163	901	1.8	0
+163	901	1.9	0
+163	901	2	0
+163	901	2.1	0
+163	901	2.2	0
+163	901	2.3	0
+163	901	2.4	0
+163	901	2.5	0
+163	901	2.6	0
+163	901	2.7	0
+163	901	2.8	0
+163	901	2.9	0
+163	901	3	0
+163	901	3.1	0
+163	901	3.2	0
+163	901	3.3	0
+163	901	3.4	0
+163	901	3.5	0
+163	901	3.6	0
+163	901	3.7	0
+163	901	3.8	0
+163	901	3.9	0
+163	901	4	0
+163	901	4.1	0
+163	901	4.2	0
+163	901	4.3	0
+163	901	4.4	0
+163	901	4.5	0
+163	901	4.6	0
+163	901	4.7	0
+163	901	4.8	0
+163	901	4.9	0
+163	901	5	0
+163	901	5.096933430061	0
+164	901	0.1	0
+164	901	0.2	0
+164	901	0.3	0
+164	901	0.4	0
+164	901	0.5	0
+164	901	0.6	0
+164	901	0.7	0
+164	901	0.8	0
+164	901	0.9	0
+164	901	1	0
+164	901	1.1	0
+164	901	1.2	0
+164	901	1.3	0
+164	901	1.4	0
+164	901	1.5	0
+164	901	1.6	0
+164	901	1.7	0
+164	901	1.8	0
+164	901	1.9	0
+164	901	2	0
+164	901	2.1	0
+164	901	2.2	0
+164	901	2.3	0
+164	901	2.4	0
+164	901	2.5	0
+164	901	2.6	0
+164	901	2.7	0
+164	901	2.8	0
+164	901	2.9	0
+164	901	3	0
+164	901	3.1	0
+164	901	3.2	0
+164	901	3.3	0
+164	901	3.4	0
+164	901	3.5	0
+164	901	3.6	0
+164	901	3.7	0
+164	901	3.8	0
+164	901	3.9	0
+164	901	4	0
+164	901	4.1	0
+164	901	4.2	0
+164	901	4.3	0
+164	901	4.4	0
+164	901	4.5	0
+164	901	4.6	0
+164	901	4.7	0
+164	901	4.8	0
+164	901	4.9	0
+164	901	5	0
+164	901	5.096933430061	0
+165	901	0.1	0
+165	901	0.2	0
+165	901	0.3	0
+165	901	0.4	0
+165	901	0.5	0
+165	901	0.6	0
+165	901	0.7	0
+165	901	0.8	0
+165	901	0.9	0
+165	901	1	0
+165	901	1.1	0
+165	901	1.2	0
+165	901	1.3	0
+165	901	1.4	0
+165	901	1.5	0
+165	901	1.6	0
+165	901	1.7	0
+165	901	1.8	0
+165	901	1.9	0
+165	901	2	0
+165	901	2.1	0
+165	901	2.2	0
+165	901	2.3	0
+165	901	2.4	0
+165	901	2.5	0
+165	901	2.6	0
+165	901	2.7	0
+165	901	2.8	0
+165	901	2.9	0
+165	901	3	0
+165	901	3.1	0
+165	901	3.2	0
+165	901	3.3	0
+165	901	3.4	0
+165	901	3.5	0
+165	901	3.6	0
+165	901	3.7	0
+165	901	3.8	0
+165	901	3.9	0
+165	901	4	0
+165	901	4.1	0
+165	901	4.2	0
+165	901	4.3	0
+165	901	4.4	0
+165	901	4.5	0
+165	901	4.6	0
+165	901	4.7	0
+165	901	4.8	0
+165	901	4.9	0
+165	901	5	0
+165	901	5.096933430061	0
+166	901	0.1	0
+166	901	0.2	0
+166	901	0.3	0
+166	901	0.4	0
+166	901	0.5	0
+166	901	0.6	0
+166	901	0.7	0
+166	901	0.8	0
+166	901	0.9	0
+166	901	1	0
+166	901	1.1	0
+166	901	1.2	0
+166	901	1.3	0
+166	901	1.4	0
+166	901	1.5	0
+166	901	1.6	0
+166	901	1.7	0
+166	901	1.8	0
+166	901	1.9	0
+166	901	2	0
+166	901	2.1	0
+166	901	2.2	0
+166	901	2.3	0
+166	901	2.4	0
+166	901	2.5	0
+166	901	2.6	0
+166	901	2.7	0
+166	901	2.8	0
+166	901	2.9	0
+166	901	3	0
+166	901	3.1	0
+166	901	3.2	0
+166	901	3.3	0
+166	901	3.4	0
+166	901	3.5	0
+166	901	3.6	0
+166	901	3.7	0
+166	901	3.8	0
+166	901	3.9	0
+166	901	4	0
+166	901	4.1	0
+166	901	4.2	0
+166	901	4.3	0
+166	901	4.4	0
+166	901	4.5	0
+166	901	4.6	0
+166	901	4.7	0
+166	901	4.8	0
+166	901	4.9	0
+166	901	5	0
+166	901	5.096933430061	0
+
